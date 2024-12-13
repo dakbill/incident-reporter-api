@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  is_victim: false
+  actor_type: MyString
+  name: MyString
+  national_id: MyString
+  passport: MyString
+  voter_id: MyString
+  gps_address: MyString
+  lat: MyString
+  lng: MyString
+
+two:
+  is_victim: false
+  actor_type: MyString
+  name: MyString
+  national_id: MyString
+  passport: MyString
+  voter_id: MyString
+  gps_address: MyString
+  lat: MyString
+  lng: MyString
