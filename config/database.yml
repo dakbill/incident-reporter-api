@@ -86,8 +86,8 @@ production:
   primary: &primary_production
     <<: *default
     database: incident_tracker_production
-    username: incident_tracker
-    password: <%= ENV["INCIDENT_TRACKER_DATABASE_PASSWORD"] %>
+    # username: incident_tracker
+    # password: <%= ENV["INCIDENT_TRACKER_DATABASE_PASSWORD"] %>
   cache:
     <<: *primary_production
     database: incident_tracker_production_cache
