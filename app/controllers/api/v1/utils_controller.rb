@@ -86,6 +86,7 @@ class Api::V1::UtilsController < ApplicationController
 
         # Extract the SQL query between ```sql and ```
         sql_query = text.match(/```sql\s+(.*?)\s+```/m)[1]
+        puts([ sql_query, !sql_query.empty? ])
 
         if !sql_query.empty?
             puts sql_query
