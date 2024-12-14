@@ -11,6 +11,7 @@ class Api::V1::IncidentsController < ApplicationController
   end
 
   def create
+    puts params
     incident = Incident.create({ status: params[:status], description: params[:description], time_of_incident: params[:time_of_incident] })
     actors = []
     locations = []

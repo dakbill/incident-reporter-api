@@ -87,7 +87,7 @@ class Api::V1::UtilsController < ApplicationController
         # Extract the SQL query between ```sql and ```
         sql_query = text.match(/```sql\s+(.*?)\s+```/m)[1]
 
-        if sql_query
+        if !sql_query.empty?
             puts sql_query
             result = ActiveRecord::Base.connection.select_all(sql_query)
             text = array_of_hashes_to_html_table(result.to_a)
