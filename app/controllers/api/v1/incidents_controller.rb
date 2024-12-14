@@ -12,37 +12,32 @@ class Api::V1::IncidentsController < ApplicationController
 
   def create
     puts params
-    incident = Incident.create({ status: params[:status], description: params[:description], time_of_incident: params[:time_of_incident] })
-    actors = []
-    locations = []
-    items = []
+    incident = Incident.new({ status: params[:status], description: params[:description], time_of_incident: params[:time_of_incident] })
 
-    params[:suspects].each do |suspect|
-      actors.append({ is_victim: false, name: suspect[:name], incident_id: incident.id })
+    (params[:suspects]||[]).each do |suspect|
+      incident.actors.append(Actor.new({ is_victim: false, name: suspect[:name] }))
     end
 
-    params[:victims].each do |victim|
-      actors.append({ is_victim: true, name: victim[:name], incident_id: incident.id })
+    (params[:victims]||[]).each do |victim|
+      incident.actors.append(Actor.new({ is_victim: true, name: victim[:name] }))
     end
 
-    params[:location].each do |o|
-      locations.append({ lat: o[:lat], lng: o[:lng], incident_id: incident.id })
+    (params[:location]||[]).each do |o|
+      incident.locations.append(Location.new({ lat: o[:lat], lng: o[:lng] }))
     end
 
-    params[:implements].each do |o|
-      items.append({ is_implement: true, name: o[:name], incident_id: incident.id })
+    (params[:implements]||[]).each do |o|
+      incident.items.append(Item.new({ is_implement: true, name: o[:name] }))
     end
 
-    params[:items].each do |o|
-      items.append({ is_implement: false, name: o[:name], incident_id: incident.id })
+    (params[:items] || []).each do |o|
+      incident.items.append(Item.new({ is_implement: false, name: o[:name] }))
     end
 
-    Actor.insert_all(actors)
-    Location.insert_all(locations)
-    Item.insert_all(items)
+    incident.save!
 
 
-    render json: {}
+    render json: incident.as_json(include: { locations: {}, actors: {}, items: {} })
   end
 
   def update
