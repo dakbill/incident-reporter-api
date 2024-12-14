@@ -90,9 +90,9 @@
     end
 
     [
-        { "email": 'taichobill@gmail.com', 'validated_phone': '+233541928449' },
-        { "email": 'porlovec4c@gmail.com', 'validated_phone': '+233248107723' },
-        { "email": 'master.eadututu@gmail.com', 'validated_phone': '+233247040753' }
+        { "email": 'taichobill@gmail.com', 'validated_phone': '+233541928449', 'password': '123456' },
+        { "email": 'porlovec4c@gmail.com', 'validated_phone': '+233248107723', 'password': '123456' },
+        { "email": 'master.eadututu@gmail.com', 'validated_phone': '+233247040753', 'password': '123456' }
     ].each do |r|
         User.find_or_create_by!(r)
     end
