@@ -94,5 +94,11 @@
         { "email": 'porlovec4c@gmail.com', 'validated_phone': '+233248107723', 'password': '123456' },
         { "email": 'master.eadututu@gmail.com', 'validated_phone': '+233247040753', 'password': '123456' }
     ].each do |r|
-        User.find_or_create_by!(r)
+        u = User.where(validated_phone: r['validated_phone']).first
+        puts u
+        if u.nil?
+            @user = User.new(r)
+            @user.save!
+            puts @user.to_json
+        end
     end
