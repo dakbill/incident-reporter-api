@@ -4,6 +4,8 @@ Rails.application.routes.draw do
       resources "incidents"
       get "utils/suggestions"
       get "utils/options"
+      get "utils/search"
+      post "utils/message"
       get "utils/send-otp" => 'utils#send_otp'
       get "utils/validate-otp" => 'utils#validate_otp'
     end

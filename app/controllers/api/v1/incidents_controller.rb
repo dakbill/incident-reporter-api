@@ -3,7 +3,6 @@ class Api::V1::IncidentsController < ApplicationController
 
   def index
     render json: Incident.all
-    
   end
 
   def show
@@ -12,31 +11,35 @@ class Api::V1::IncidentsController < ApplicationController
   end
 
   def create
-    incident = Incident.create({status: params[:status], description: params[:description], time_of_incident: params[:time_of_incident]})
+    incident = Incident.create({ status: params[:status], description: params[:description], time_of_incident: params[:time_of_incident] })
     actors = []
     locations = []
     items = []
-    
+
     params[:suspects].each do |suspect|
-      actors.append({is_victim: false, name: suspect[:name], incident_id: incident.id})
+      actors.append({ is_victim: false, name: suspect[:name], incident_id: incident.id })
     end
 
     params[:victims].each do |victim|
-      actors.append({is_victim: true, name: victim[:name], incident_id: incident.id})
+      actors.append({ is_victim: true, name: victim[:name], incident_id: incident.id })
     end
 
     params[:location].each do |o|
-      locations.append({lat: o[:lat], lng: o[:lng], incident_id: incident.id})
+      locations.append({ lat: o[:lat], lng: o[:lng], incident_id: incident.id })
     end
 
     params[:implements].each do |o|
-      items.append({is_implement: true, name: o[:name], incident_id: incident.id})
+      items.append({ is_implement: true, name: o[:name], incident_id: incident.id })
+    end
+
+    params[:items].each do |o|
+      items.append({ is_implement: false, name: o[:name], incident_id: incident.id })
     end
 
     Actor.insert_all(actors)
     Location.insert_all(locations)
     Item.insert_all(items)
-    
+
 
     render json: {}
   end
